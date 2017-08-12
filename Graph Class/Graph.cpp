@@ -1,3 +1,5 @@
+// Graph class member function definitions
+
 #include "Graph.h"
 
 
