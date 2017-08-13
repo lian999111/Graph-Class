@@ -10,10 +10,10 @@ public:
 	// Constructs a graph with given inputs
 	// Inputs:
 	//	num_of_vertices:	No. of vertices. Sould be no less than 0
-	//	density:			The probabilty of edge formation between two vertices.
-	//						Should be between 0 and 1.
-	//						0 means no edges will be created.
-	//	max_range:			The max range of the graph.
+	//	density:			The probabilty of edge formation between two vertices
+	//						Should be between 0 and 1
+	//						0 means no edges will be created
+	//	max_range:			The max range of the graph
 	Graph(int num_of_vertices = 0, double density = 0.0, int max_range = 0);
 
 	~Graph();
@@ -55,8 +55,22 @@ public:
 	//	A vector containing the indices of the vertices
 	std::vector<int> GetVertices() const;
 
+	// Gets the edge value between 2 vertices
+	// Inputs:
+	//	i:		The index of vertex of interest, should be > 0
+	//	j:		The index of vertex of interest, should be > 0 and not equal to i
+	// Output:
+	//	The value of the edge specified
 	int GetEdgeValue(int i, int j) const;
 
+	// Sets the edge value between 2 vertices
+	// Inputs:
+	//	i:		The index of vertex of interest, should be > 0
+	//	j:		The index of vertex of interest, should be > 0 and not equal to i
+	//	range:	The desired range
+	// Output:
+	//	True if seccessfully set
+	//	If the edge does not exist previously, the setting aborts.
 	bool SetEdgeValue(int i, int j, int range);
 	
 private:
