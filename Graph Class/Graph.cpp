@@ -32,9 +32,10 @@ Graph::Graph(int num_of_vertices, double density, int max_range) :
 		// Start looping from the next vertex
 		for (int vert_idx_2 = vert_idx_1 + 1; vert_idx_2 < num_of_vertices; ++vert_idx_2)
 		{
-			// If the random number is below density, make no edge and continue to the next loop
+			// If the random number is bigger than density, 
+			// make no edge and continue to the next loop
 			double rand_num = rand() / ((double)RAND_MAX + 1);
-			if (rand_num < density)
+			if (rand_num > density)
 				continue;
 			// Generate the random range
 			int range = (rand() % k_max_range_) + 1;
