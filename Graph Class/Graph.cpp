@@ -82,7 +82,7 @@ vector<int> Graph::NeighborsOf(int i) const
 
 	vector<int> neighbor_list;
 	// If the edge to i-th element is greater than 0, put in the neighbor_list
-	for (int idx = 1; idx < num_of_vertices_; ++idx)
+	for (int idx = 0; idx < num_of_vertices_; ++idx)
 	{
 		if (edge_matrix_.at(i).at(idx) > 0)
 			neighbor_list.push_back(idx);
