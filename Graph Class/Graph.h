@@ -34,14 +34,22 @@ public:
 	//	True when deleting successfully the edge
 	bool DeleteEdge(int i, int j);
 
-	// Get the neighbors of the vertex of interest
+	// Gets the neighbors of the vertex of interest
 	// Inputs:
 	//	i:		The index of vertex of interest, should be > 0
 	// Output:
 	//	A vector containing the neighbor indices of the specified vertex
 	std::vector<int> NeighborsOf(int i) const;
 
-	// Get all the vertices
+	// Checks the connection between two vertices
+	// Inputs:
+	//	i:		The index of vertex of interest, should be > 0
+	//	j:		The index of vertex of interest, should be > 0 and not equal to i
+	// Output:
+	//	True when the two vertices connected
+	bool CheckConnection(int i, int j) const;
+
+	// Gets all the vertices
 	// Output:
 	//	A vector containing the indices of the vertices
 	std::vector<int> GetVertices() const;

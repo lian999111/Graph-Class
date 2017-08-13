@@ -88,6 +88,14 @@ vector<int> Graph::NeighborsOf(int i) const
 	return neighbor_list;
 }
 
+bool Graph::CheckConnection(int i, int j) const
+{
+	assert((i != j));
+	if (edge_matrix_.at(i).at(j) > 0)
+		return true;
+	return false;
+}
+
 vector<int> Graph::GetVertices() const
 {
 	vector<int> vertices_list;
