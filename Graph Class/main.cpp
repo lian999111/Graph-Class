@@ -11,17 +11,17 @@ int main()
 {
 	Graph my_graph(5, 0.7, 10);
 
+	// Get all the vertices and print
+	vector<int> vertices = my_graph.GetVertices();
+	cout << "All vertices: ";
+	for (vector<int>::const_iterator i = vertices.begin(); i != vertices.end(); ++i)
+		cout << *i << ' ';
+	cout << endl;
+
 	// Get the neighbors and print
 	vector<int> neighbor = my_graph.NeighborsOf(1);
 	cout << "Neighbors of 1: ";
 	for (vector<int>::const_iterator i = neighbor.begin(); i != neighbor.end(); ++i)
-		cout << *i << ' ';
-	cout << endl;
-
-	// Get the vertices and print
-	vector<int> vertices = my_graph.GetVertices();
-	cout << "All vertices: ";
-	for (vector<int>::const_iterator i = vertices.begin(); i != vertices.end(); ++i)
 		cout << *i << ' ';
 	cout << endl;
 
