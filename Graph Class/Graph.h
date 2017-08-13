@@ -54,6 +54,10 @@ public:
 	// Output:
 	//	A vector containing the indices of the vertices
 	std::vector<int> GetVertices() const;
+
+	int GetEdgeValue(int i, int j) const;
+
+	bool SetEdgeValue(int i, int j, int range);
 	
 private:
 	int num_of_vertices_;

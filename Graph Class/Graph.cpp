@@ -109,3 +109,21 @@ vector<int> Graph::GetVertices() const
 	}
 	return vertices_list;
 }
+
+int Graph::GetEdgeValue(int i, int j) const
+{
+	return edge_matrix_.at(i).at(j);
+}
+
+bool Graph::SetEdgeValue(int i, int j, int range)
+{
+	assert((i != j) && (range > 0));
+
+	if (edge_matrix_.at(i).at(j) == 0)
+		return false;
+	
+	edge_matrix_.at(i).at(j) = range;
+	edge_matrix_.at(j).at(i) = range;
+	return true;
+}
+
