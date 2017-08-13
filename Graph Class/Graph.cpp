@@ -34,7 +34,8 @@ Graph::Graph(int num_of_vertices, double density, int max_range) :
 		for (int vert_idx_2 = vert_idx_1 + 1; vert_idx_2 < num_of_vertices; ++vert_idx_2)
 		{
 			// If the random number is below density, make no edge and continue to the next loop
-			if (rand() / ((double)RAND_MAX + 1) < density)
+			double rand_num = rand() / ((double)RAND_MAX + 1);
+			if (rand_num < density)
 				continue;
 			// Generate the random range
 			int range = (rand() % k_max_range_) + 1;
@@ -59,5 +60,18 @@ bool Graph::AddEdge(int i, int j, int range)
 
 	edge_matrix_.at(i).at(j) = range;
 	edge_matrix_.at(j).at(i) = range;
+	return true;
+}
+
+bool Graph::DeleteEdge(int i, int j)
+{
+	assert((i != j));
+	if (edge_matrix_.at(i).at(j) == 0)
+	{
+		return false;
+	}
+
+	edge_matrix_.at(i).at(j) = 0;
+	edge_matrix_.at(j).at(i) = 0;
 	return true;
 }

@@ -6,5 +6,5 @@
 
 int main()
 {
-	
+	Graph my_graph(5, 0.5, 10);
 }

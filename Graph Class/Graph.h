@@ -23,6 +23,12 @@ public:
 	//	j:		The index of vertex 2, should be > 0 and not equal to i
 	//	range:	The range of the edge, should be > 0
 	bool AddEdge(int i, int j, int range);
+
+	// Deletes an edge between two vertices
+	// Input:
+	//	i:		The index of vertex 1, should be > 0
+	//	j:		The index of vertex 2, should be > 0 and not equal to i
+	bool DeleteEdge(int i, int j);
 	
 private:
 	int num_of_vertices_;
