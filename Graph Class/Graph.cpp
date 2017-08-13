@@ -59,6 +59,8 @@ bool Graph::AddEdge(int i, int j, int range)
 
 	edge_matrix_.at(i).at(j) = range;
 	edge_matrix_.at(j).at(i) = range;
+	++num_of_edges_;
+
 	return true;
 }
 
@@ -72,6 +74,8 @@ bool Graph::DeleteEdge(int i, int j)
 
 	edge_matrix_.at(i).at(j) = 0;
 	edge_matrix_.at(j).at(i) = 0;
+	--num_of_edges_;
+
 	return true;
 }
 
