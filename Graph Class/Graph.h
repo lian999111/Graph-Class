@@ -12,7 +12,8 @@ public:
 	//	num_of_vertices:	No. of vertices. Sould be no less than 0
 	//	density:			The probabilty of edge formation between two vertices.
 	//						Should be between 0 and 1. 
-	Graph(int num_of_vertices = 0, double density = 0.0);
+	//	max_range:			The max range of the graph.
+	Graph(int num_of_vertices = 0, double density = 0.0, int max_range = 0);
 
 	~Graph();
 
@@ -21,11 +22,13 @@ public:
 	//	i:		The index of vertex 1, should be > 0
 	//	j:		The index of vertex 2, should be > 0 and not equal to i
 	//	range:	The range of the edge, should be > 0
-	void AddEdge(uint8_t i, uint8_t j, uint8_t range);
-
+	void AddEdge(int i, int j, int range);
+	
 private:
 	int num_of_vertices_;
 	int num_of_edges_;
+	const int kMaxRange;
+	
 	// graph is a 2D vector storing the edges with their values
 	std::vector<std::vector<int>> edge_matrix_;
 };

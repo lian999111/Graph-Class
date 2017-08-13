@@ -7,8 +7,8 @@
 using namespace std;
 
 // 
-Graph::Graph(int num_of_vertices, double density) :
-	num_of_vertices_(num_of_vertices), 
+Graph::Graph(int num_of_vertices, double density, int max_range) :
+	num_of_vertices_(num_of_vertices),
 	num_of_edges_(0)
 {
 
@@ -27,21 +27,21 @@ Graph::Graph(int num_of_vertices, double density) :
 
 	// Else, make edges
 	srand(time(0));
-	for (int vert_idx = 1; vert_idx <= num_of_vertices; ++vert_idx)
+	const int kMaxRange = 20;
+	for (int vert_idx_1 = 0; vert_idx_1 < num_of_vertices; ++vert_idx_1)
 	{
-		
+		for (int vert_idx_2 = 0; vert_idx_2 < num_of_vertices; ++vert_idx_2)
+		{
+			rand();
+		}
 	}
-
-	
-
-
 
 }
 
 Graph::~Graph()
 {}
 
-void Graph::AddEdge(uint8_t i, uint8_t j, uint8_t range)
+void Graph::AddEdge(int i, int j, int range)
 {
 	assert((i != j) && (range > 0));
 	edge_matrix_.at(i).at(j) = range;
