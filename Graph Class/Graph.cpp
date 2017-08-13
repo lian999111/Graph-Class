@@ -77,9 +77,6 @@ bool Graph::DeleteEdge(int i, int j)
 
 vector<int> Graph::NeighborsOf(int i) const
 {
-	// Check if i lies in the legal range
-	assert((i >= 0) && (i <= num_of_vertices_));
-
 	vector<int> neighbor_list;
 	// If the edge to i-th element is greater than 0, put in the neighbor_list
 	for (int idx = 0; idx < num_of_vertices_; ++idx)
