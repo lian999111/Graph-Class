@@ -11,6 +11,9 @@ int main()
 {
 	Graph my_graph(5, 0.7, 10);
 
+	cout << "No. of vertices: " << my_graph.GetNumOfVertices() << endl;
+	cout << "No. of edges: " << my_graph.GetNumOfEdges() << endl;
+
 	// Get all the vertices and print
 	vector<int> vertices = my_graph.GetVertices();
 	cout << "All vertices: ";
