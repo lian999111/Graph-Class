@@ -22,12 +22,13 @@ public:
 	//	i:		The index of vertex 1, should be > 0
 	//	j:		The index of vertex 2, should be > 0 and not equal to i
 	//	range:	The range of the edge, should be > 0
-	void AddEdge(int i, int j, int range);
+	bool AddEdge(int i, int j, int range);
 	
 private:
 	int num_of_vertices_;
 	int num_of_edges_;
-	const int kMaxRange;
+	// The max range of the graph
+	const int k_max_range_;
 	
 	// graph is a 2D vector storing the edges with their values
 	std::vector<std::vector<int>> edge_matrix_;
