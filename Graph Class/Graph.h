@@ -22,17 +22,23 @@ public:
 	//	i:		The index of vertex 1, should be > 0
 	//	j:		The index of vertex 2, should be > 0 and not equal to i
 	//	range:	The range of the edge, should be > 0
+	// Output:
+	//	True when adding successfully the edge
 	bool AddEdge(int i, int j, int range);
 
 	// Deletes an edge between two vertices
 	// Inputs:
 	//	i:		The index of vertex 1, should be > 0
 	//	j:		The index of vertex 2, should be > 0 and not equal to i
+	// Output:
+	//	True when deleting successfully the edge
 	bool DeleteEdge(int i, int j);
 
 	// Get the neighbors of the vertex of interest
 	// Inputs:
 	//	i:		The index of vertex of interest, should be > 0
+	// Output:
+	//	A vector containing the neighbor indices of the specified vertex
 	std::vector<int> NeighborsOf(int i) const;
 	
 private:
