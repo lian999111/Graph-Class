@@ -6,7 +6,6 @@
 
 using namespace std;
 
-// 
 Graph::Graph(int num_of_vertices, double density, int max_range) :
 	num_of_vertices_(num_of_vertices),
 	num_of_edges_(0),
@@ -74,4 +73,10 @@ bool Graph::DeleteEdge(int i, int j)
 	edge_matrix_.at(i).at(j) = 0;
 	edge_matrix_.at(j).at(i) = 0;
 	return true;
+}
+
+vector<int> Graph::NeighborsOf(int i) const
+{
+	vector<int> neighbor_list = 
+	return false;
 }

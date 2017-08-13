@@ -7,8 +7,8 @@
 class Graph
 {
 public:
-	// Constructor
-	// Input:
+	// Constructs a graph with given inputs
+	// Inputs:
 	//	num_of_vertices:	No. of vertices. Sould be no less than 0
 	//	density:			The probabilty of edge formation between two vertices.
 	//						Should be between 0 and 1. 
@@ -18,17 +18,22 @@ public:
 	~Graph();
 
 	// Adds an edge between two vertices
-	// Input:
+	// Inputs:
 	//	i:		The index of vertex 1, should be > 0
 	//	j:		The index of vertex 2, should be > 0 and not equal to i
 	//	range:	The range of the edge, should be > 0
 	bool AddEdge(int i, int j, int range);
 
 	// Deletes an edge between two vertices
-	// Input:
+	// Inputs:
 	//	i:		The index of vertex 1, should be > 0
 	//	j:		The index of vertex 2, should be > 0 and not equal to i
 	bool DeleteEdge(int i, int j);
+
+	// Get the neighbors of the vertex of interest
+	// Inputs:
+	//	i:		The index of vertex of interest, should be > 0
+	vector<int> NeighborsOf(int i) const;
 	
 private:
 	int num_of_vertices_;
