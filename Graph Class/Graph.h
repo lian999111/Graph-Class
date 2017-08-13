@@ -33,7 +33,7 @@ public:
 	// Get the neighbors of the vertex of interest
 	// Inputs:
 	//	i:		The index of vertex of interest, should be > 0
-	vector<int> NeighborsOf(int i) const;
+	std::vector<int> NeighborsOf(int i) const;
 	
 private:
 	int num_of_vertices_;

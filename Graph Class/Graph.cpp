@@ -42,7 +42,6 @@ Graph::Graph(int num_of_vertices, double density, int max_range) :
 			assert(AddEdge(vert_idx_1, vert_idx_2, range));
 		}
 	}
-
 }
 
 Graph::~Graph()
