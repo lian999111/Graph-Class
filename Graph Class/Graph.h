@@ -72,6 +72,10 @@ public:
 	//	True if seccessfully set
 	//	If the edge does not exist previously, the setting aborts.
 	bool SetEdgeValue(int i, int j, int range);
+
+	int GetNumOfVertices() const;
+
+	int GetNumOfEdges() const;
 	
 private:
 	int num_of_vertices_;

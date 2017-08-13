@@ -127,3 +127,13 @@ bool Graph::SetEdgeValue(int i, int j, int range)
 	return true;
 }
 
+int Graph::GetNumOfVertices() const
+{
+	return num_of_vertices_;
+}
+
+int Graph::GetNumOfEdges() const
+{
+	return num_of_edges_;
+}
+
