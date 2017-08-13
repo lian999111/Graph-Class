@@ -40,6 +40,11 @@ public:
 	// Output:
 	//	A vector containing the neighbor indices of the specified vertex
 	std::vector<int> NeighborsOf(int i) const;
+
+	// Get all the vertices
+	// Output:
+	//	A vector containing the indices of the vertices
+	std::vector<int> GetVertices() const;
 	
 private:
 	int num_of_vertices_;

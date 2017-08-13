@@ -90,3 +90,13 @@ vector<int> Graph::NeighborsOf(int i) const
 
 	return neighbor_list;
 }
+
+std::vector<int> Graph::GetVertices() const
+{
+	vector<int> vertices_list;
+	for (int idx = 0; idx < num_of_vertices_; ++idx)
+	{
+		vertices_list.push_back(idx);
+	}
+	return vertices_list;
+}
