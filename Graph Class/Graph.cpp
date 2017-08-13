@@ -91,7 +91,7 @@ vector<int> Graph::NeighborsOf(int i) const
 	return neighbor_list;
 }
 
-std::vector<int> Graph::GetVertices() const
+vector<int> Graph::GetVertices() const
 {
 	vector<int> vertices_list;
 	for (int idx = 0; idx < num_of_vertices_; ++idx)
