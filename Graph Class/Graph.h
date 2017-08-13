@@ -11,7 +11,8 @@ public:
 	// Inputs:
 	//	num_of_vertices:	No. of vertices. Sould be no less than 0
 	//	density:			The probabilty of edge formation between two vertices.
-	//						Should be between 0 and 1. 
+	//						Should be between 0 and 1.
+	//						0 means no edges will be created.
 	//	max_range:			The max range of the graph.
 	Graph(int num_of_vertices = 0, double density = 0.0, int max_range = 0);
 
