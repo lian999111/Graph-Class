@@ -17,9 +17,10 @@ private:
 	// The max range of the graph
 	const int k_max_range_;
 
-	// graph is a 2D vector storing the edges with their values
+	// A 2D vector storing the edges with their values
 	std::vector<std::vector<int>> edge_matrix_;
 
+	// A map storing the mapping between the node names and their integer index
 	std::unordered_map<T, int> symbol_table_;
 
 public:
@@ -145,13 +146,15 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 
 template <class T>
 Graph<T>::Graph(const std::vector<T>& vec_node_name, double density = 0.0, int max_range = 0)
-	: num_of_vertices_(num_of_vertices)
+	: num_of_vertices_(vec_node_name.size())
 	, num_of_edges_(0)
 	, k_max_range_(max_range)
 {
 
 	// Check if parameters are within legal ranges
-	assert((num_of_vertices >= 0) && (density >= 0.0) && (density <= 1.0) && (max_range > 0));
+	assert((vec_node_name.size() >= 0) && (density >= 0.0) && (density <= 1.0) && (max_range > 0));
+
+	
 
 	// Initialize the 2D matrix with the given num_of_vertices
 	edge_matrix_ = vector<vector<int>>(num_of_vertices_, vector<int>(num_of_vertices_));
