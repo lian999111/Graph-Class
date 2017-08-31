@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <cstdint>
+#include <unordered_map>
 
 // This graph class allows users to use an arbitrary type for the node name
 template <class T>
@@ -16,6 +17,8 @@ private:
 
 	// graph is a 2D vector storing the edges with their values
 	std::vector<std::vector<int>> edge_matrix_;
+
+	std::unordered_map<T, int> symbol_table_;
 
 public:
 	// Constructs a graph with given inputs

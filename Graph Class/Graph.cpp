@@ -6,7 +6,8 @@
 
 using namespace std;
 
-Graph::Graph(int num_of_vertices, double density, int max_range) :
+template <class T>
+Graph<T>::Graph(int num_of_vertices, double density, int max_range) :
 	num_of_vertices_(num_of_vertices),
 	num_of_edges_(0),
 	k_max_range_(max_range)
@@ -40,15 +41,17 @@ Graph::Graph(int num_of_vertices, double density, int max_range) :
 			// Generate the random range
 			int range = (rand() % k_max_range_) + 1;
 			// Add edge
-			assert(AddEdge(vert_idx_1, vert_idx_2, range));
+			AddEdge(vert_idx_1, vert_idx_2, range);
 		}
 	}
 }
 
-Graph::~Graph()
+template <class T>
+Graph<T>::~Graph()
 {}
 
-bool Graph::AddEdge(int i, int j, int range)
+template <class T>
+bool Graph<T>::AddEdge(int i, int j, int range)
 {
 	assert((i != j) && (range > 0));
 
@@ -64,7 +67,8 @@ bool Graph::AddEdge(int i, int j, int range)
 	return true;
 }
 
-bool Graph::DeleteEdge(int i, int j)
+template <class T>
+bool Graph<T>::DeleteEdge(int i, int j)
 {
 	assert((i != j));
 	if (edge_matrix_.at(i).at(j) == 0)
@@ -79,7 +83,8 @@ bool Graph::DeleteEdge(int i, int j)
 	return true;
 }
 
-vector<int> Graph::NeighborsOf(int i) const
+template <class T>
+vector<int> Graph<T>::NeighborsOf(int i) const
 {
 	vector<int> neighbor_list;
 	// If the edge to i-th element is greater than 0, put in the neighbor_list
@@ -92,7 +97,8 @@ vector<int> Graph::NeighborsOf(int i) const
 	return neighbor_list;
 }
 
-bool Graph::CheckConnection(int i, int j) const
+template <class T>
+bool Graph<T>::CheckConnection(int i, int j) const
 {
 	assert((i != j));
 	if (edge_matrix_.at(i).at(j) > 0)
@@ -100,7 +106,8 @@ bool Graph::CheckConnection(int i, int j) const
 	return false;
 }
 
-vector<int> Graph::GetVertices() const
+template <class T>
+vector<int> Graph<T>::GetVertices() const
 {
 	vector<int> vertices_list;
 	for (int idx = 0; idx < num_of_vertices_; ++idx)
@@ -110,12 +117,14 @@ vector<int> Graph::GetVertices() const
 	return vertices_list;
 }
 
-int Graph::GetEdgeValue(int i, int j) const
+template <class T>
+int Graph<T>::GetEdgeValue(int i, int j) const
 {
 	return edge_matrix_.at(i).at(j);
 }
 
-bool Graph::SetEdgeValue(int i, int j, int range)
+template <class T>
+bool Graph<T>::SetEdgeValue(int i, int j, int range)
 {
 	assert((i != j) && (range > 0));
 
@@ -127,12 +136,14 @@ bool Graph::SetEdgeValue(int i, int j, int range)
 	return true;
 }
 
-int Graph::GetNumOfVertices() const
+template <class T>
+int Graph<T>::GetNumOfVertices() const
 {
 	return num_of_vertices_;
 }
 
-int Graph::GetNumOfEdges() const
+template <class T>
+int Graph<T>::GetNumOfEdges() const
 {
 	return num_of_edges_;
 }
