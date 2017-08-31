@@ -23,6 +23,13 @@ private:
 	// A map storing the mapping between the node names and their integer index
 	std::unordered_map<T, int> symbol_table_;
 
+	// Makes a symbol table given the vector of node names
+	// Inputs:
+	//	vec_node_name:	The vector containing a list of node names 
+	// Output:
+	//	A map of node names with their integer indices
+	static std::unordered_map<T, int> MakeSymbolTable(const std::vector<T>& vec_node_name = std::vector<T>());
+
 public:
 	// Constructs a graph with given inputs
 	// Inputs:
@@ -104,9 +111,28 @@ public:
 	int GetNumOfEdges() const;
 };
 
+template<class T>
+inline std::unordered_map<T, int> Graph<T>::MakeSymbolTable(const std::vector<T>& vec_node_name)
+{
+	// If node name vector is empty, return empty map
+	if(vec_node_name.size() == 0)
+		return std::unordered_map<T, int>();
+	
+	// Else, give each node an integer index in sequence of the vector
+	std::unordered_map<T, int> symbol_table;
+	int ctr = 0;
+	for (const auto& name : vec_node_name)
+	{
+		symbol_table.at(name) = ctr;
+		ctr++;
+	}
+	return symbol_table;
+}
+
 template <class T>
 Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 	: num_of_vertices_(num_of_vertices)
+	, symbol_table_(MakeSymbleTable())
 	, num_of_edges_(0)
 	, k_max_range_(max_range)
 {
@@ -147,6 +173,7 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 template <class T>
 Graph<T>::Graph(const std::vector<T>& vec_node_name, double density = 0.0, int max_range = 0)
 	: num_of_vertices_(vec_node_name.size())
+	, symbol_table_(MakeSymbleTable(vec_node_name))
 	, num_of_edges_(0)
 	, k_max_range_(max_range)
 {
