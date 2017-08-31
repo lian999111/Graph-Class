@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-	Graph my_graph(5, 0.7, 10);
+	Graph<int> my_graph(5, 0.7, 10);
 
 	cout << "No. of vertices: " << my_graph.GetNumOfVertices() << endl;
 	cout << "No. of edges: " << my_graph.GetNumOfEdges() << endl;

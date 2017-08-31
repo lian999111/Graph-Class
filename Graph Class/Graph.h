@@ -5,7 +5,7 @@
 #include <cstdint>
 #include <unordered_map>
 
-// This graph class allows users to use an arbitrary type for the node name
+// An arbitrary type for the node name
 template <class T>
 class Graph
 {
@@ -37,7 +37,7 @@ public:
 	//						Should be between 0 and 1
 	//						0 means no edges will be created
 	//	max_range:			The max range of the graph
-	Graph(vector<T> vec_node_name = 0, double density = 0.0, int max_range = 0);
+	Graph(const std::vector<T>& vec_node_name, double density = 0.0, int max_range = 0);
 
 	~Graph();
 
