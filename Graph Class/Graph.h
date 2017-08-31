@@ -4,8 +4,19 @@
 #include <vector>
 #include <cstdint>
 
+// This graph class allows users to use an arbitrary type for the node name
+template <class T>
 class Graph
 {
+private:
+	int num_of_vertices_;
+	int num_of_edges_;
+	// The max range of the graph
+	const int k_max_range_;
+
+	// graph is a 2D vector storing the edges with their values
+	std::vector<std::vector<int>> edge_matrix_;
+
 public:
 	// Constructs a graph with given inputs
 	// Inputs:
@@ -76,14 +87,5 @@ public:
 	int GetNumOfVertices() const;
 
 	int GetNumOfEdges() const;
-	
-private:
-	int num_of_vertices_;
-	int num_of_edges_;
-	// The max range of the graph
-	const int k_max_range_;
-	
-	// graph is a 2D vector storing the edges with their values
-	std::vector<std::vector<int>> edge_matrix_;
 };
 
