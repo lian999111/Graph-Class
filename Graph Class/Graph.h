@@ -60,6 +60,15 @@ public:
 	//	True when adding successfully the edge
 	bool AddEdge(int i, int j, int range);
 
+	// Adds an edge between two vertices
+	// Inputs:
+	//	i:		The index of vertex 1, should be > 0
+	//	j:		The index of vertex 2, should be > 0 and not equal to i
+	//	range:	The range of the edge, should be > 0
+	// Output:
+	//	True when adding successfully the edge
+	bool AddEdge(T i, T j, int range);
+
 	// Deletes an edge between two vertices
 	// Inputs:
 	//	i:		The index of vertex 1, should be > 0
@@ -120,11 +129,11 @@ inline std::unordered_map<T, int> Graph<T>::MakeSymbolTable(const std::vector<T>
 	
 	// Else, give each node an integer index in sequence of the vector
 	std::unordered_map<T, int> symbol_table;
-	int ctr = 0;
+	int counter = 0;
 	for (const auto& name : vec_node_name)
 	{
-		symbol_table.at(name) = ctr;
-		ctr++;
+		symbol_table.at(name) = counter;
+		counter++;
 	}
 	return symbol_table;
 }
@@ -232,6 +241,12 @@ bool Graph<T>::AddEdge(int i, int j, int range)
 	++num_of_edges_;
 
 	return true;
+}
+
+template<class T>
+bool Graph<T>::AddEdge(T i, T j, int range)
+{
+	return false;
 }
 
 template <class T>
