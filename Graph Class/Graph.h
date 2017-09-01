@@ -30,10 +30,17 @@ private:
 	//	A map of node names with their integer indices
 	static std::unordered_map<T, int> MakeSymbolTable(const std::vector<T>& vec_node_name = std::vector<T>());
 
+	// The real implementation of AddEdge()
 	template <class N>
 	bool AddEdgeImpl(N i, N j, int range);
 
+	// The real implementation of AddEdge() (overloaded for int)
 	bool AddEdgeImpl(int i, int j, int range);
+
+	template <class N>
+	bool DeleteEdgeImpl(N i, N j);
+
+	bool DeleteEdgeImpl(int i, int j);
 public:
 	// Constructs a graph with given inputs
 	// Inputs:
@@ -66,11 +73,11 @@ public:
 
 	// Deletes an edge between two vertices
 	// Inputs:
-	//	i:		The index of vertex 1, should be > 0
-	//	j:		The index of vertex 2, should be > 0 and not equal to i
+	//	i:		The name of vertex 1, should be > 0
+	//	j:		The name of vertex 2, should be > 0 and not equal to i
 	// Output:
 	//	True when deleting successfully the edge
-	bool DeleteEdge(int i, int j);
+	bool DeleteEdge(T i, T j);
 
 	// Gets the neighbors of the vertex of interest
 	// Inputs:
@@ -171,6 +178,42 @@ bool Graph<T>::AddEdgeImpl(int i, int j, int range)
 	return true;
 }
 
+template<class T>
+template<class N>
+bool Graph<T>::DeleteEdgeImpl(N i, N j)
+{
+	assert((i != j));
+	i_idx = symbol_table_.at(i);
+	j_idx = symbol_table_.at(j);
+
+	if (edge_matrix_.at(i_idx).at(j_idx) == 0)
+	{
+		return false;
+	}
+
+	edge_matrix_.at(i_idxi).at(j_idx) = 0;
+	edge_matrix_.at(j_idx).at(i_idx) = 0;
+	--num_of_edges_;
+
+	return true;
+}
+
+
+template<class T>
+bool Graph<T>::DeleteEdgeImpl(int i, int j)
+{
+	assert((i != j));
+	if (edge_matrix_.at(i).at(j) == 0)
+	{
+		return false;
+	}
+
+	edge_matrix_.at(i).at(j) = 0;
+	edge_matrix_.at(j).at(i) = 0;
+	--num_of_edges_;
+
+	return true;
+}
 
 template <class T>
 Graph<T>::Graph(int num_of_vertices, double density, int max_range)
@@ -267,19 +310,9 @@ bool Graph<T>::AddEdge(T i, T j, int range)
 }
 
 template <class T>
-bool Graph<T>::DeleteEdge(int i, int j)
+bool Graph<T>::DeleteEdge(T i, T j)
 {
-	assert((i != j));
-	if (edge_matrix_.at(i).at(j) == 0)
-	{
-		return false;
-	}
-
-	edge_matrix_.at(i).at(j) = 0;
-	edge_matrix_.at(j).at(i) = 0;
-	--num_of_edges_;
-
-	return true;
+	return DeleteEdgeImpl(i, j);
 }
 
 template <class T>
