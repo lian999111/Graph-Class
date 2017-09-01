@@ -137,10 +137,7 @@ template <class T>
 template <class N>
 bool Graph<T>::AddEdgeImpl(N i, N j, int range)
 {
-	unordered_map<T, int>::iterator it_i = symbol_table_.find(i);
-	unordered_map<T, int>::iterator it_j = symbol_table_.find(j);
-
-	assert((it_i != it_j) && (range > 0));
+	assert((i != j) && (range > 0));
 
 	int i_idx = symbol_table_.at(i);
 	int j_idx = symbol_table_.at(j);
