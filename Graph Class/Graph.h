@@ -30,6 +30,10 @@ private:
 	//	A map of node names with their integer indices
 	static std::unordered_map<T, int> MakeSymbolTable(const std::vector<T>& vec_node_name = std::vector<T>());
 
+	template <class N>
+	bool AddEdgeImpl(N i, N j, int range);
+
+	bool AddEdgeImpl(int i, int j, int range);
 public:
 	// Constructs a graph with given inputs
 	// Inputs:
@@ -53,17 +57,8 @@ public:
 
 	// Adds an edge between two vertices
 	// Inputs:
-	//	i:		The index of vertex 1, should be > 0
-	//	j:		The index of vertex 2, should be > 0 and not equal to i
-	//	range:	The range of the edge, should be > 0
-	// Output:
-	//	True when adding successfully the edge
-	bool AddEdge(int i, int j, int range);
-
-	// Adds an edge between two vertices
-	// Inputs:
-	//	i:		The index of vertex 1, should be > 0
-	//	j:		The index of vertex 2, should be > 0 and not equal to i
+	//	i:		The name of vertex 1, should be in the symbol table
+	//	j:		The name of vertex 2, should be in the symbol table and not equal to i
 	//	range:	The range of the edge, should be > 0
 	// Output:
 	//	True when adding successfully the edge
@@ -139,9 +134,51 @@ inline std::unordered_map<T, int> Graph<T>::MakeSymbolTable(const std::vector<T>
 }
 
 template <class T>
+template <class N>
+bool Graph<T>::AddEdgeImpl(N i, N j, int range)
+{
+	unordered_map<T, int>::iterator it_i = symbol_table_.find(i);
+	unordered_map<T, int>::iterator it_j = symbol_table_.find(j);
+
+	assert((it_i != it_j) && (range > 0));
+
+	int i_idx = symbol_table_.at(i);
+	int j_idx = symbol_table_.at(j);
+
+	if (edge_matrix_.at(i_idx).at(j_idx) > 0)
+	{
+		return false;
+	}
+
+	edge_matrix_.at(i_idx).at(j_idx) = range;
+	edge_matrix_.at(j_idx).at(i_idx) = range;
+	++num_of_edges_;
+
+	return true;
+}
+
+template<class T>
+bool Graph<T>::AddEdgeImpl(int i, int j, int range)
+{
+	assert((i != j) && (range > 0));
+
+	if (edge_matrix_.at(i).at(j) > 0)
+	{
+		return false;
+	}
+
+	edge_matrix_.at(i).at(j) = range;
+	edge_matrix_.at(j).at(i) = range;
+	++num_of_edges_;
+
+	return true;
+}
+
+
+template <class T>
 Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 	: num_of_vertices_(num_of_vertices)
-	, symbol_table_(MakeSymbleTable())
+	, symbol_table_(MakeSymbolTable())
 	, num_of_edges_(0)
 	, k_max_range_(max_range)
 {
@@ -226,27 +263,10 @@ template <class T>
 Graph<T>::~Graph()
 {}
 
-template <class T>
-bool Graph<T>::AddEdge(int i, int j, int range)
-{
-	assert((i != j) && (range > 0));
-
-	if (edge_matrix_.at(i).at(j) > 0)
-	{
-		return false;
-	}
-
-	edge_matrix_.at(i).at(j) = range;
-	edge_matrix_.at(j).at(i) = range;
-	++num_of_edges_;
-
-	return true;
-}
-
 template<class T>
 bool Graph<T>::AddEdge(T i, T j, int range)
 {
-	return false;
+	return AddEdgeImpl(i, j, range);
 }
 
 template <class T>
