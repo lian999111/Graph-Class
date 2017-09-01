@@ -116,7 +116,7 @@ public:
 };
 
 template<class T>
-inline std::unordered_map<T, int> Graph<T>::MakeSymbolTable(const std::vector<T>& vec_node_name)
+std::unordered_map<T, int> Graph<T>::MakeSymbolTable(const std::vector<T>& vec_node_name)
 {
 	// If node name vector is empty, return empty map
 	if(vec_node_name.size() == 0)
