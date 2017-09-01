@@ -161,6 +161,7 @@ bool Graph<T>::AddEdgeImpl(N i, N j, int range)
 	return true;
 }
 
+
 template<class T>
 bool Graph<T>::AddEdgeImpl(int i, int j, int range)
 {

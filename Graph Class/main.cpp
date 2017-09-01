@@ -46,4 +46,12 @@ int main()
 	cout << "The range is changed to: "
 		<< my_graph.GetEdgeValue(1, 2)
 		<< endl;
+
+	// Delete an edge
+	my_graph.DeleteEdge(1, 2);
+	
+	cout << "1 and 2 are connected by range: "
+		<< my_graph.GetEdgeValue(1, 2)
+		<< endl;
+	
 }
