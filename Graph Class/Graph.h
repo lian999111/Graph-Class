@@ -1,4 +1,4 @@
-// Graph class definition
+// Graph Class Template
 #pragma once
 
 #include <vector>
