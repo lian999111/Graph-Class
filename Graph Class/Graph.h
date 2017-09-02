@@ -73,7 +73,7 @@ public:
 	//	range:	The range of the edge, should be > 0
 	// Output:
 	//	True when adding successfully the edge
-	bool AddEdge(T i, T j, int range);
+	bool AddEdge(T i_node_name, T j_node_name, int range);
 
 	// Deletes an edge between two vertices
 	// Inputs:
@@ -81,14 +81,14 @@ public:
 	//	j:		The name of vertex 2 (can be int), should be in the symbol table and not equal to i
 	// Output:
 	//	True when deleting successfully the edge
-	bool DeleteEdge(T i, T j);
+	bool DeleteEdge(T i_node_name, T j_node_name);
 
 	// Gets the neighbors of the vertex of interest
 	// Inputs:
 	//	i:		The index of vertex of interest, should be > 0
 	// Output:
 	//	A vector containing the neighbor indices of the specified vertex
-	std::vector<T> NeighborsOf(const T& i) const;
+	std::vector<T> NeighborsOf(const T& node_name) const;
 
 	// Checks the connection between two vertices
 	// Inputs:
@@ -96,7 +96,7 @@ public:
 	//	j:		The index of vertex of interest, should be > 0 and not equal to i
 	// Output:
 	//	True when the two vertices connected
-	bool CheckConnection(int i, int j) const;
+	bool CheckConnection(T i_node_name, T j_node_name) const;
 
 	// Gets all the vertices
 	// Output:
@@ -213,17 +213,22 @@ Graph<T>::~Graph()
 {}
 
 template<class T>
-bool Graph<T>::AddEdge(T i, T j, int range)
+bool Graph<T>::AddEdge(T i_node_name, T j_node_name, int range)
 {
-	assert((i != j) && (range > 0));
+	assert((i_node_name != j_node_name) && (range > 0));
 
-	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
-	auto j_ite = std::find(symbol_table_.begin(), symbol_table_.end(), j);
-	if (i_ite == symbol_table_.end() || j_ite == symbol_table_.end())
-		throw out_of_range("Given node doesn't exist.");
-
-	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
-	auto j_idx = std::distance(symbol_table_.begin(), j_ite);
+	// Find the indices of the node
+	int i_idx = 0;
+	int j_idx = 0;
+	try
+	{
+		i_idx = GetIndex(i_node_name);
+		j_idx = GetIndex(j_node_name);
+	}
+	catch (const out_of_range &e)
+	{
+		throw;
+	}
 
 	if (edge_matrix_.at(i_idx).at(j_idx) > 0)
 	{
@@ -238,17 +243,22 @@ bool Graph<T>::AddEdge(T i, T j, int range)
 }
 
 template <class T>
-bool Graph<T>::DeleteEdge(T i, T j)
+bool Graph<T>::DeleteEdge(T i_node_name, T j_node_name)
 {
-	assert((i != j));
+	assert((i_node_name != j_node_name));
 
-	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
-	auto j_ite = std::find(symbol_table_.begin(), symbol_table_.end(), j);
-	if (i_ite == symbol_table_.end() || j_ite == symbol_table_.end())
-		throw out_of_range("Given node doesn't exist.");
-
-	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
-	auto j_idx = std::distance(symbol_table_.begin(), j_ite);
+	// Find the indices of the node
+	int i_idx = 0;
+	int j_idx = 0;
+	try
+	{
+		i_idx = GetIndex(i_node_name);
+		j_idx = GetIndex(j_node_name);
+	}
+	catch (const out_of_range &e)
+	{
+		throw;
+	}
 
 	if (edge_matrix_.at(i_idx).at(j_idx) == 0)
 	{
@@ -288,10 +298,24 @@ std::vector<T> Graph<T>::NeighborsOf(const T& node_name) const
 }
 
 template <class T>
-bool Graph<T>::CheckConnection(int i, int j) const
+bool Graph<T>::CheckConnection(T i_node_name, T j_node_name) const
 {
-	assert((i != j));
-	if (edge_matrix_.at(i).at(j) > 0)
+	assert((i_node_name != j_node_name));
+
+	// Find the indices of the node
+	int i_idx = 0;
+	int j_idx = 0;
+	try
+	{
+		i_idx = GetIndex(i_node_name);
+		j_idx = GetIndex(j_node_name);
+	}
+	catch (const out_of_range &e)
+	{
+		throw;
+	}
+
+	if (edge_matrix_.at(i_idx).at(j_idx) > 0)
 		return true;
 	return false;
 }
