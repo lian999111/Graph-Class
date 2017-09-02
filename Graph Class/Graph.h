@@ -330,7 +330,19 @@ const std::vector<T>& Graph<T>::GetVertices() const
 template <class T>
 int Graph<T>::GetEdgeValue(const T& i_node_name, const T& j_node_name) const
 {
-	return edge_matrix_.at(i).at(j);
+	// Find the indices of the node
+	int i_idx = 0;
+	int j_idx = 0;
+	try
+	{
+		i_idx = GetIndex(i_node_name);
+		j_idx = GetIndex(j_node_name);
+	}
+	catch (const out_of_range &e)
+	{
+		throw;
+	}
+	return edge_matrix_.at(i_idx).at(j_idx);
 }
 
 template <class T>
