@@ -326,7 +326,6 @@ const std::vector<T>& Graph<T>::GetVertices() const
 	return symbol_table_;
 }
 
-// Todo: continue here
 template <class T>
 int Graph<T>::GetEdgeValue(const T& i_node_name, const T& j_node_name) const
 {
@@ -348,13 +347,27 @@ int Graph<T>::GetEdgeValue(const T& i_node_name, const T& j_node_name) const
 template <class T>
 bool Graph<T>::SetEdgeValue(const T& i_node_name, const T& j_node_name, int range)
 {
-	assert((i != j) && (range > 0));
+	assert((i_node_name != j_node_name) && (range > 0));
 
-	if (edge_matrix_.at(i).at(j) == 0)
+	// Find the indices of the node
+	int i_idx = 0;
+	int j_idx = 0;
+	try
+	{
+		i_idx = GetIndex(i_node_name);
+		j_idx = GetIndex(j_node_name);
+	}
+	catch (const out_of_range &e)
+	{
+		throw;
+	}
+
+	// If there is no edge already existing, do nothing and return false
+	if (edge_matrix_.at(i_idx).at(j_idx) == 0)
 		return false;
 
-	edge_matrix_.at(i).at(j) = range;
-	edge_matrix_.at(j).at(i) = range;
+	edge_matrix_.at(i_idx).at(j_idx) = range;
+	edge_matrix_.at(j_idx).at(i_idx) = range;
 	return true;
 }
 
