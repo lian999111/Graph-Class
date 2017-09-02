@@ -100,8 +100,8 @@ public:
 
 	// Gets all the vertices
 	// Output:
-	//	A vector containing the indices of the vertices
-	std::vector<int> GetVertices() const;
+	//	A vector containing the names of the vertices
+	const std::vector<T>& GetVertices() const;
 
 	// Gets the edge value between 2 vertices
 	// Inputs:
@@ -321,14 +321,9 @@ bool Graph<T>::CheckConnection(T i_node_name, T j_node_name) const
 }
 
 template <class T>
-std::vector<int> Graph<T>::GetVertices() const
+const std::vector<T>& Graph<T>::GetVertices() const
 {
-	vector<int> vertices_list;
-	for (int idx = 0; idx < num_of_vertices_; ++idx)
-	{
-		vertices_list.push_back(idx);
-	}
-	return vertices_list;
+	return symbol_table_;
 }
 
 template <class T>
