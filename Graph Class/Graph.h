@@ -2,10 +2,11 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 #include <cstdint>
-#include <unordered_map>
 #include <ctime>
 #include <cassert>
+#include <exception>
 
 // An arbitrary type for the node name
 template <class T>
@@ -21,14 +22,7 @@ private:
 	std::vector<std::vector<int>> edge_matrix_;
 
 	// A map storing the mapping between the node names and their integer index
-	std::unordered_map<T, int> symbol_table_;
-
-	// Makes a symbol table given the vector of node names
-	// Inputs:
-	//	vec_node_name:	The vector containing a list of node names 
-	// Output:
-	//	A map of node names with their integer indices
-	static std::unordered_map<T, int> MakeSymbolTable(const std::vector<T>& vec_node_name = std::vector<T>());
+	std::vector<T> symbol_table_;
 
 	// The real implementation of AddEdge()
 	template <class N>
@@ -122,32 +116,19 @@ public:
 	int GetNumOfEdges() const;
 };
 
-template<class T>
-std::unordered_map<T, int> Graph<T>::MakeSymbolTable(const std::vector<T>& vec_node_name)
-{
-	// If node name vector is empty, return empty map
-	if(vec_node_name.size() == 0)
-		return std::unordered_map<T, int>();
-	
-	// Else, give each node an integer index in sequence of the vector
-	std::unordered_map<T, int> symbol_table;
-	int counter = 0;
-	for (const auto& name : vec_node_name)
-	{
-		symbol_table.at(name) = counter;
-		counter++;
-	}
-	return symbol_table;
-}
-
 template <class T>
 template <class N>
 bool Graph<T>::AddEdgeImpl(N i, N j, int range)
 {
 	assert((i != j) && (range > 0));
 
-	int i_idx = symbol_table_.at(i);
-	int j_idx = symbol_table_.at(j);
+	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
+	auto j_ite = std::find(symbol_table_.begin(), symbol_table_.end(), j);
+	if (i_ite == symbol_table_.end() || j_ite == symbol_table_.end())
+		throw out_of_range("Given node doesn't exist.");
+
+	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
+	auto j_idx = std::distance(symbol_table_.begin(), j_ite);
 
 	if (edge_matrix_.at(i_idx).at(j_idx) > 0)
 	{
@@ -155,7 +136,7 @@ bool Graph<T>::AddEdgeImpl(N i, N j, int range)
 	}
 
 	edge_matrix_.at(i_idx).at(j_idx) = range;
-	edge_matrix_.at(j_idx).at(i_idx) = range;
+	edge_matrix_.at(j_idx).at(i_ite) = range;
 	++num_of_edges_;
 
 	return true;
@@ -183,9 +164,15 @@ template<class T>
 template<class N>
 bool Graph<T>::DeleteEdgeImpl(N i, N j)
 {
-	assert((i != j));
-	i_idx = symbol_table_.at(i);
-	j_idx = symbol_table_.at(j);
+	assert((i != j) && (range > 0));
+
+	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
+	auto j_ite = std::find(symbol_table_.begin(), symbol_table_.end(), j);
+	if (i_ite == symbol_table_.end() || j_ite == symbol_table_.end())
+		throw out_of_range("Given node doesn't exist.");
+
+	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
+	auto j_idx = std::distance(symbol_table_.begin(), j_ite);
 
 	if (edge_matrix_.at(i_idx).at(j_idx) == 0)
 	{
@@ -219,7 +206,7 @@ bool Graph<T>::DeleteEdgeImpl(int i, int j)
 template <class T>
 Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 	: num_of_vertices_(num_of_vertices)
-	, symbol_table_(MakeSymbolTable())
+	, symbol_table_()
 	, num_of_edges_(0)
 	, k_max_range_(max_range)
 {
@@ -260,15 +247,13 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 template <class T>
 Graph<T>::Graph(const std::vector<T>& vec_node_name, double density = 0.0, int max_range = 0)
 	: num_of_vertices_(vec_node_name.size())
-	, symbol_table_(MakeSymbleTable(vec_node_name))
+	, symbol_table_(vec_node_name)
 	, num_of_edges_(0)
 	, k_max_range_(max_range)
 {
 
 	// Check if parameters are within legal ranges
 	assert((vec_node_name.size() >= 0) && (density >= 0.0) && (density <= 1.0) && (max_range > 0));
-
-	
 
 	// Initialize the 2D matrix with the given num_of_vertices
 	edge_matrix_ = vector<vector<int>>(num_of_vertices_, vector<int>(num_of_vertices_));
