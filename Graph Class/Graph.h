@@ -73,7 +73,7 @@ public:
 	//	range:	The range of the edge, should be > 0
 	// Output:
 	//	True when adding successfully the edge
-	bool AddEdge(T i_node_name, T j_node_name, int range);
+	bool AddEdge(const T& i_node_name, const T& j_node_name, int range);
 
 	// Deletes an edge between two vertices
 	// Inputs:
@@ -81,7 +81,7 @@ public:
 	//	j:		The name of vertex 2 (can be int), should be in the symbol table and not equal to i
 	// Output:
 	//	True when deleting successfully the edge
-	bool DeleteEdge(T i_node_name, T j_node_name);
+	bool DeleteEdge(const T& i_node_name, const T& j_node_name);
 
 	// Gets the neighbors of the vertex of interest
 	// Inputs:
@@ -96,7 +96,7 @@ public:
 	//	j:		The index of vertex of interest, should be > 0 and not equal to i
 	// Output:
 	//	True when the two vertices connected
-	bool CheckConnection(T i_node_name, T j_node_name) const;
+	bool CheckConnection(const T& i_node_name, const T& j_node_name) const;
 
 	// Gets all the vertices
 	// Output:
@@ -109,7 +109,7 @@ public:
 	//	j:		The index of vertex of interest, should be > 0 and not equal to i
 	// Output:
 	//	The value of the edge specified
-	int GetEdgeValue(int i, int j) const;
+	int GetEdgeValue(const T& i_node_name, const T& j_node_name) const;
 
 	// Sets the edge value between 2 vertices
 	// Inputs:
@@ -119,7 +119,7 @@ public:
 	// Output:
 	//	True if seccessfully set
 	//	If the edge does not exist previously, the setting aborts.
-	bool SetEdgeValue(int i, int j, int range);
+	bool SetEdgeValue(const T& i_node_name, const T& j_node_name, int range);
 
 	int GetNumOfVertices() const;
 
@@ -213,7 +213,7 @@ Graph<T>::~Graph()
 {}
 
 template<class T>
-bool Graph<T>::AddEdge(T i_node_name, T j_node_name, int range)
+bool Graph<T>::AddEdge(const T& i_node_name, const T& j_node_name, int range)
 {
 	assert((i_node_name != j_node_name) && (range > 0));
 
@@ -243,7 +243,7 @@ bool Graph<T>::AddEdge(T i_node_name, T j_node_name, int range)
 }
 
 template <class T>
-bool Graph<T>::DeleteEdge(T i_node_name, T j_node_name)
+bool Graph<T>::DeleteEdge(const T& i_node_name, const T& j_node_name)
 {
 	assert((i_node_name != j_node_name));
 
@@ -298,7 +298,7 @@ std::vector<T> Graph<T>::NeighborsOf(const T& node_name) const
 }
 
 template <class T>
-bool Graph<T>::CheckConnection(T i_node_name, T j_node_name) const
+bool Graph<T>::CheckConnection(const T& i_node_name, const T& j_node_name) const
 {
 	assert((i_node_name != j_node_name));
 
@@ -326,14 +326,15 @@ const std::vector<T>& Graph<T>::GetVertices() const
 	return symbol_table_;
 }
 
+// Todo: continue here
 template <class T>
-int Graph<T>::GetEdgeValue(int i, int j) const
+int Graph<T>::GetEdgeValue(const T& i_node_name, const T& j_node_name) const
 {
 	return edge_matrix_.at(i).at(j);
 }
 
 template <class T>
-bool Graph<T>::SetEdgeValue(int i, int j, int range)
+bool Graph<T>::SetEdgeValue(const T& i_node_name, const T& j_node_name, int range)
 {
 	assert((i != j) && (range > 0));
 

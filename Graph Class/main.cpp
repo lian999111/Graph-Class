@@ -15,7 +15,9 @@ int main()
 	cout << "No. of edges: " << my_graph.GetNumOfEdges() << endl;
 
 	// Get all the vertices and print
-	vector<int> vertices = my_graph.GetVertices();
+	
+	// the difference between declaring using vector<int>& or vector<int>????
+	const vector<int>& vertices = my_graph.GetVertices();
 	cout << "All vertices: ";
 	for (vector<int>::const_iterator i = vertices.begin(); i != vertices.end(); ++i)
 		cout << *i << ' ';
