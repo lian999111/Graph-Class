@@ -18,11 +18,11 @@ private:
 	// The max range of the graph
 	const int k_max_range_;
 
-	// A 2D vector storing the edges with their values
-	std::vector<std::vector<int>> edge_matrix_;
-
 	// A map storing the mapping between the node names and their integer index
 	std::vector<T> symbol_table_;
+
+	// A 2D vector storing the edges with their values
+	std::vector<std::vector<int>> edge_matrix_;
 
 	// Helps to initialize symbol_table_ from num_of_vertices
 	static std::vector<int> MakeSymbolTable(int num_of_vertices)
