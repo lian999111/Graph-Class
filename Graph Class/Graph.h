@@ -258,12 +258,16 @@ bool Graph<T>::DeleteEdge(T i, T j)
 template <class T>
 std::vector<T> Graph<T>::NeighborsOf(T i) const
 {
-	vector<int> neighbor_list;
+	// Find the index of the node
+	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
+	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
+
+	vector<T> neighbor_list;
 	// If the edge to i-th element is greater than 0, put in the neighbor_list
-	for (int idx = 0; idx < num_of_vertices_; ++idx)
+	for (int j_idx = 0; j_idx < num_of_vertices_; ++j_idx)
 	{
-		if (edge_matrix_.at(i).at(idx) > 0)
-			neighbor_list.push_back(idx);
+		if (edge_matrix_.at(i_idx).at(j_idx) > 0)
+			neighbor_list.push_back(symbol_table_.at(j_idx));
 	}
 
 	return neighbor_list;
