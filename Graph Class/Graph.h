@@ -58,8 +58,8 @@ public:
 
 	// Adds an edge between two vertices
 	// Inputs:
-	//	i:		The name of vertex 1, should be in the symbol table
-	//	j:		The name of vertex 2, should be in the symbol table and not equal to i
+	//	i:		The name of vertex 1 (can be int), should be in the symbol table
+	//	j:		The name of vertex 2 (can be int), should be in the symbol table and not equal to i
 	//	range:	The range of the edge, should be > 0
 	// Output:
 	//	True when adding successfully the edge
@@ -67,8 +67,8 @@ public:
 
 	// Deletes an edge between two vertices
 	// Inputs:
-	//	i:		The name of vertex 1, should be > 0
-	//	j:		The name of vertex 2, should be > 0 and not equal to i
+	//	i:		The name of vertex 1 (can be int), should be in the symbol table
+	//	j:		The name of vertex 2 (can be int), should be in the symbol table and not equal to i
 	// Output:
 	//	True when deleting successfully the edge
 	bool DeleteEdge(T i, T j);
