@@ -25,7 +25,25 @@ private:
 	std::vector<T> symbol_table_;
 
 	// Helps to initialize symbol_table_ from num_of_vertices
-	static std::vector<int> MakeSymbolTable(int num_of_vertices);
+	static std::vector<int> MakeSymbolTable(int num_of_vertices)
+	{
+		std::vector<int> vec;
+		for (int i = 0; i < num_of_vertices; ++i)
+		{
+			vec.push_back(i);
+		}
+		return vec;
+	}
+
+	// Helps to get the index of the given node name
+	int GetIndex(const T& node_name) const
+	{
+		auto ite = std::find(symbol_table_.begin() , symbol_table_.end(), node_name);
+		if (ite == symbol_table_.end())
+			throw out_of_range("Given node doesn't exist.");
+
+		return std::distance(symbol_table_.begin(), ite);
+	}
 
 public:
 	// Constructs a graph with given inputs
@@ -107,17 +125,6 @@ public:
 
 	int GetNumOfEdges() const;
 };
-
-template<class T>
-std::vector<int> Graph<T>::MakeSymbolTable(int num_of_vertices)
-{
-	std::vector<int> vec;
-	for (int i = 0; i < num_of_vertices; ++i)
-	{
-		vec.push_back(i);
-	}
-	return vec;
-}
 
 template <class T>
 Graph<T>::Graph(int num_of_vertices, double density, int max_range)
