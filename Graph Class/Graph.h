@@ -24,17 +24,9 @@ private:
 	// A map storing the mapping between the node names and their integer index
 	std::vector<T> symbol_table_;
 
-	// The real implementation of AddEdge()
-	template <class N>
-	bool AddEdgeImpl(N i, N j, int range);
+	// Helps to initialize symbol_table_ from num_of_vertices
+	static std::vector<int> MakeSymbolTable(int num_of_vertices);
 
-	// The real implementation of AddEdge() (overloaded for int)
-	bool AddEdgeImpl(int i, int j, int range);
-
-	template <class N>
-	bool DeleteEdgeImpl(N i, N j);
-
-	bool DeleteEdgeImpl(int i, int j);
 public:
 	// Constructs a graph with given inputs
 	// Inputs:
@@ -78,7 +70,7 @@ public:
 	//	i:		The index of vertex of interest, should be > 0
 	// Output:
 	//	A vector containing the neighbor indices of the specified vertex
-	std::vector<int> NeighborsOf(int i) const;
+	std::vector<T> NeighborsOf(T i) const;
 
 	// Checks the connection between two vertices
 	// Inputs:
@@ -116,97 +108,21 @@ public:
 	int GetNumOfEdges() const;
 };
 
-template <class T>
-template <class N>
-bool Graph<T>::AddEdgeImpl(N i, N j, int range)
-{
-	assert((i != j) && (range > 0));
-
-	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
-	auto j_ite = std::find(symbol_table_.begin(), symbol_table_.end(), j);
-	if (i_ite == symbol_table_.end() || j_ite == symbol_table_.end())
-		throw out_of_range("Given node doesn't exist.");
-
-	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
-	auto j_idx = std::distance(symbol_table_.begin(), j_ite);
-
-	if (edge_matrix_.at(i_idx).at(j_idx) > 0)
-	{
-		return false;
-	}
-
-	edge_matrix_.at(i_idx).at(j_idx) = range;
-	edge_matrix_.at(j_idx).at(i_ite) = range;
-	++num_of_edges_;
-
-	return true;
-}
-
-
 template<class T>
-bool Graph<T>::AddEdgeImpl(int i, int j, int range)
+std::vector<int> Graph<T>::MakeSymbolTable(int num_of_vertices)
 {
-	assert((i != j) && (range > 0));
-
-	if (edge_matrix_.at(i).at(j) > 0)
+	std::vector<int> vec;
+	for (int i = 0; i < num_of_vertices; ++i)
 	{
-		return false;
+		vec.push_back(i);
 	}
-
-	edge_matrix_.at(i).at(j) = range;
-	edge_matrix_.at(j).at(i) = range;
-	++num_of_edges_;
-
-	return true;
-}
-
-template<class T>
-template<class N>
-bool Graph<T>::DeleteEdgeImpl(N i, N j)
-{
-	assert((i != j) && (range > 0));
-
-	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
-	auto j_ite = std::find(symbol_table_.begin(), symbol_table_.end(), j);
-	if (i_ite == symbol_table_.end() || j_ite == symbol_table_.end())
-		throw out_of_range("Given node doesn't exist.");
-
-	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
-	auto j_idx = std::distance(symbol_table_.begin(), j_ite);
-
-	if (edge_matrix_.at(i_idx).at(j_idx) == 0)
-	{
-		return false;
-	}
-
-	edge_matrix_.at(i_idxi).at(j_idx) = 0;
-	edge_matrix_.at(j_idx).at(i_idx) = 0;
-	--num_of_edges_;
-
-	return true;
-}
-
-
-template<class T>
-bool Graph<T>::DeleteEdgeImpl(int i, int j)
-{
-	assert((i != j));
-	if (edge_matrix_.at(i).at(j) == 0)
-	{
-		return false;
-	}
-
-	edge_matrix_.at(i).at(j) = 0;
-	edge_matrix_.at(j).at(i) = 0;
-	--num_of_edges_;
-
-	return true;
+	return vec;
 }
 
 template <class T>
 Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 	: num_of_vertices_(num_of_vertices)
-	, symbol_table_()
+	, symbol_table_(MakeSymbolTable(num_of_vertices))
 	, num_of_edges_(0)
 	, k_max_range_(max_range)
 {
@@ -292,17 +208,55 @@ Graph<T>::~Graph()
 template<class T>
 bool Graph<T>::AddEdge(T i, T j, int range)
 {
-	return AddEdgeImpl(i, j, range);
+	assert((i != j) && (range > 0));
+
+	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
+	auto j_ite = std::find(symbol_table_.begin(), symbol_table_.end(), j);
+	if (i_ite == symbol_table_.end() || j_ite == symbol_table_.end())
+		throw out_of_range("Given node doesn't exist.");
+
+	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
+	auto j_idx = std::distance(symbol_table_.begin(), j_ite);
+
+	if (edge_matrix_.at(i_idx).at(j_idx) > 0)
+	{
+		return false;
+	}
+
+	edge_matrix_.at(i_idx).at(j_idx) = range;
+	edge_matrix_.at(j_idx).at(i_idx) = range;
+	++num_of_edges_;
+
+	return true;
 }
 
 template <class T>
 bool Graph<T>::DeleteEdge(T i, T j)
 {
-	return DeleteEdgeImpl(i, j);
+	assert((i != j));
+
+	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
+	auto j_ite = std::find(symbol_table_.begin(), symbol_table_.end(), j);
+	if (i_ite == symbol_table_.end() || j_ite == symbol_table_.end())
+		throw out_of_range("Given node doesn't exist.");
+
+	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
+	auto j_idx = std::distance(symbol_table_.begin(), j_ite);
+
+	if (edge_matrix_.at(i_idx).at(j_idx) == 0)
+	{
+		return false;
+	}
+
+	edge_matrix_.at(i_idx).at(j_idx) = 0;
+	edge_matrix_.at(j_idx).at(i_idx) = 0;
+	--num_of_edges_;
+
+	return true;
 }
 
 template <class T>
-std::vector<int> Graph<T>::NeighborsOf(int i) const
+std::vector<T> Graph<T>::NeighborsOf(T i) const
 {
 	vector<int> neighbor_list;
 	// If the edge to i-th element is greater than 0, put in the neighbor_list
