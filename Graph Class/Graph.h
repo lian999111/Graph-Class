@@ -68,8 +68,8 @@ public:
 
 	// Adds an edge between two vertices
 	// Inputs:
-	//	i:		The name of vertex 1 (can be int), should be in the symbol table
-	//	j:		The name of vertex 2 (can be int), should be in the symbol table and not equal to i
+	//	i_node_name:	The name of vertex 1 (can be int), should be in the symbol table
+	//	j_node_name:	The name of vertex 2 (can be int), should be in the symbol table and not equal to i
 	//	range:	The range of the edge, should be > 0
 	// Output:
 	//	True when adding successfully the edge
@@ -77,23 +77,23 @@ public:
 
 	// Deletes an edge between two vertices
 	// Inputs:
-	//	i:		The name of vertex 1 (can be int), should be in the symbol table
-	//	j:		The name of vertex 2 (can be int), should be in the symbol table and not equal to i
+	//	i_node_name:	The name of vertex 1 (can be int), should be in the symbol table
+	//	j_node_name:	The name of vertex 2 (can be int), should be in the symbol table and not equal to i
 	// Output:
 	//	True when deleting successfully the edge
 	bool DeleteEdge(const T& i_node_name, const T& j_node_name);
 
 	// Gets the neighbors of the vertex of interest
 	// Inputs:
-	//	i:		The index of vertex of interest, should be > 0
+	//	node_name:		The index of vertex of interest, should be > 0
 	// Output:
 	//	A vector containing the neighbor indices of the specified vertex
 	std::vector<T> NeighborsOf(const T& node_name) const;
 
 	// Checks the connection between two vertices
 	// Inputs:
-	//	i:		The index of vertex of interest, should be > 0
-	//	j:		The index of vertex of interest, should be > 0 and not equal to i
+	//	i_node_name:		The index of vertex of interest, should be > 0
+	//	j_node_name:		The index of vertex of interest, should be > 0 and not equal to i
 	// Output:
 	//	True when the two vertices connected
 	bool CheckConnection(const T& i_node_name, const T& j_node_name) const;
@@ -105,16 +105,16 @@ public:
 
 	// Gets the edge value between 2 vertices
 	// Inputs:
-	//	i:		The index of vertex of interest, should be > 0
-	//	j:		The index of vertex of interest, should be > 0 and not equal to i
+	//	i_node_name:		The index of vertex of interest, should be > 0
+	//	j_node_name:		The index of vertex of interest, should be > 0 and not equal to i
 	// Output:
 	//	The value of the edge specified
 	int GetEdgeValue(const T& i_node_name, const T& j_node_name) const;
 
 	// Sets the edge value between 2 vertices
 	// Inputs:
-	//	i:		The index of vertex of interest, should be > 0
-	//	j:		The index of vertex of interest, should be > 0 and not equal to i
+	//	i_node_name:	The index of vertex of interest, should be > 0
+	//	j_node_name:	The index of vertex of interest, should be > 0 and not equal to i
 	//	range:	The desired range
 	// Output:
 	//	True if seccessfully set
