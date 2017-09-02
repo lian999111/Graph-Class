@@ -261,6 +261,11 @@ std::vector<T> Graph<T>::NeighborsOf(T i) const
 	// Find the index of the node
 	auto i_ite = std::find(symbol_table_.begin(), symbol_table_.end(), i);
 	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
+	if (i_ite == symbol_table_.end()))
+		throw out_of_range("Given node doesn't exist.");
+
+	auto i_idx = std::distance(symbol_table_.begin(), i_ite);
+	auto j_idx = std::distance(symbol_table_.begin(), j_ite);
 
 	vector<T> neighbor_list;
 	// If the edge to i-th element is greater than 0, put in the neighbor_list
