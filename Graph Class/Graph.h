@@ -88,7 +88,7 @@ public:
 	//	i:		The index of vertex of interest, should be > 0
 	// Output:
 	//	A vector containing the neighbor indices of the specified vertex
-	std::vector<T> NeighborsOf(T i) const;
+	std::vector<T> NeighborsOf(const T& i) const;
 
 	// Checks the connection between two vertices
 	// Inputs:
