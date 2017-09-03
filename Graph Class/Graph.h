@@ -28,6 +28,7 @@ private:
 	static std::vector<int> MakeSymbolTable(int num_of_vertices)
 	{
 		std::vector<int> vec;
+		vec.reserve(num_of_vertices);
 		for (int i = 0; i < num_of_vertices; ++i)
 		{
 			vec.push_back(i);
