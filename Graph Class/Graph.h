@@ -41,7 +41,7 @@ private:
 	{
 		auto ite = std::find(symbol_table_.begin() , symbol_table_.end(), node_name);
 		if (ite == symbol_table_.end())
-			throw out_of_range("Given node doesn't exist.");
+			throw std::out_of_range("Given node doesn't exist.");
 
 		return std::distance(symbol_table_.begin(), ite);
 	}
@@ -192,7 +192,7 @@ Graph<T>::Graph(const std::vector<T>& vec_node_name, double density = 0.0, int m
 	assert((vec_node_name.size() >= 0) && (density >= 0.0) && (density <= 1.0) && (max_range > 0));
 
 	// Initialize the 2D matrix with the given num_of_vertices
-	edge_matrix_ = vector<vector<int>>(num_of_vertices_, vector<int>(num_of_vertices_));
+	edge_matrix_ = std::vector<std::vector<int>>(num_of_vertices_, std::vector<int>(num_of_vertices_));
 
 	// If density is 0 or no. of vertices is 0,
 	// make no edges and return directly
@@ -211,7 +211,7 @@ Graph<T>::Graph(const std::vector<T>& vec_node_name, double density = 0.0, int m
 		{
 			i_idx = GetIndex(i_node_name);
 		}
-		catch (const out_of_range &e)
+		catch (const std::out_of_range &e)
 		{
 			throw;
 		}
@@ -250,7 +250,7 @@ bool Graph<T>::AddEdge(const T& i_node_name, const T& j_node_name, int range)
 		i_idx = GetIndex(i_node_name);
 		j_idx = GetIndex(j_node_name);
 	}
-	catch (const out_of_range &e)
+	catch (const std::out_of_range& e)
 	{
 		throw;
 	}

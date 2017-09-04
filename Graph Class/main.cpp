@@ -11,7 +11,7 @@ using namespace std;
 int main()
 {
 	cout << "Use number of vertices to construct:" << endl;
-	Graph<int> my_graph(5, 0.7, 10);
+	Graph<int> my_graph(10, 0.7, 10);
 
 	cout << "No. of vertices: " << my_graph.GetNumOfVertices() << endl;
 	cout << "No. of edges: " << my_graph.GetNumOfEdges() << endl;
@@ -62,7 +62,7 @@ int main()
 	/////////// Test a graph with string node names ///////////
 	cout << endl << "Use string node names to construct:" << endl;
 	vector<string> node_names{ "A", "B", "C", "D", "E" };
-	Graph<string> my_string_graph(node_names, 0.7, 10);
+	Graph<string> my_string_graph(vector<string>{ "A", "B", "C", "D", "E" }, 0.7, 10);
 
 	cout << "No. of vertices: " << my_string_graph.GetNumOfVertices() << endl;
 	cout << "No. of edges: " << my_string_graph.GetNumOfEdges() << endl;
