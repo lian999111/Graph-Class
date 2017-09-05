@@ -59,9 +59,9 @@ int main()
 		<< my_graph.GetEdgeValue(1, 2)
 		<< endl;
 	
-	/////////// Test a graph with string node names ///////////
-	cout << endl << "Use string node names to construct:" << endl;
-	vector<string> node_names{ "A", "B", "C", "D", "E" };
+	/////////// Test a graph with string vertex names ///////////
+	cout << endl << "Use string vertex names to construct:" << endl;
+	vector<string> vertex_names{ "A", "B", "C", "D", "E" };
 	Graph<string> my_string_graph(vector<string>{ "A", "B", "C", "D", "E" }, 0.7, 10);
 
 	cout << "No. of vertices: " << my_string_graph.GetNumOfVertices() << endl;

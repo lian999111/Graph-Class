@@ -8,7 +8,7 @@
 #include <cassert>
 #include <exception>
 
-// An arbitrary type for the node name
+// An arbitrary type for the vertex name
 template <class T>
 class Graph
 {
@@ -18,7 +18,7 @@ private:
 	// The max range of the graph
 	const int k_max_range_;
 
-	// A map storing the mapping between the node names and their integer index
+	// A map storing the mapping between the vertex names and their integer index
 	std::vector<T> symbol_table_;
 
 	// A 2D vector storing the edges with their values
@@ -36,12 +36,12 @@ private:
 		return vec;
 	}
 
-	// Helps to get the index of the given node name
-	int GetIndex(const T& node_name) const
+	// Helps to get the index of the given vertex name
+	int GetIndex(const T& vertex_name) const
 	{
-		auto ite = std::find(symbol_table_.begin() , symbol_table_.end(), node_name);
+		auto ite = std::find(symbol_table_.begin() , symbol_table_.end(), vertex_name);
 		if (ite == symbol_table_.end())
-			throw std::out_of_range("Given node doesn't exist.");
+			throw std::out_of_range("Given vertex doesn't exist.");
 
 		return std::distance(symbol_table_.begin(), ite);
 	}
@@ -56,48 +56,48 @@ public:
 	//	max_range:			The max range of the graph
 	Graph(int num_of_vertices = 0, double density = 0.0, int max_range = 0);
 
-	// Constructs a graph with given vector of node names
+	// Constructs a graph with given vector of vertex names
 	// Inputs:
-	//	vec_node_name:		The vector containing a list of node names
+	//	vec_vertex_name:		The vector containing a list of vertex names
 	//	density:			The probabilty of edge formation between two vertices
 	//						Should be between 0 and 1
 	//						0 means no edges will be created
 	//	max_range:			The max range of the graph
-	Graph(const std::vector<T>& vec_node_name, double density = 0.0, int max_range = 0);
+	Graph(const std::vector<T>& vec_vertex_name, double density = 0.0, int max_range = 0);
 
 	~Graph();
 
 	// Adds an edge between two vertices
 	// Inputs:
-	//	i_node_name:	The name of vertex 1 (can be int), should be in the symbol table
-	//	j_node_name:	The name of vertex 2 (can be int), should be in the symbol table and not equal to i
+	//	i_vertex_name:	The name of vertex 1 (can be int), should be in the symbol table
+	//	j_vertex_name:	The name of vertex 2 (can be int), should be in the symbol table and not equal to i
 	//	range:	The range of the edge, should be > 0
 	// Output:
 	//	True when adding successfully the edge
-	bool AddEdge(const T& i_node_name, const T& j_node_name, int range);
+	bool AddEdge(const T& i_vertex_name, const T& j_vertex_name, int range);
 
 	// Deletes an edge between two vertices
 	// Inputs:
-	//	i_node_name:	The name of vertex 1 (can be int), should be in the symbol table
-	//	j_node_name:	The name of vertex 2 (can be int), should be in the symbol table and not equal to i
+	//	i_vertex_name:	The name of vertex 1 (can be int), should be in the symbol table
+	//	j_vertex_name:	The name of vertex 2 (can be int), should be in the symbol table and not equal to i
 	// Output:
 	//	True when deleting successfully the edge
-	bool DeleteEdge(const T& i_node_name, const T& j_node_name);
+	bool DeleteEdge(const T& i_vertex_name, const T& j_vertex_name);
 
 	// Gets the neighbors of the vertex of interest
 	// Inputs:
-	//	node_name:		The index of vertex of interest, should be > 0
+	//	vertex_name:		The index of vertex of interest, should be > 0
 	// Output:
 	//	A vector containing the neighbor indices of the specified vertex
-	std::vector<T> NeighborsOf(const T& node_name) const;
+	std::vector<T> NeighborsOf(const T& vertex_name) const;
 
 	// Checks the connection between two vertices
 	// Inputs:
-	//	i_node_name:		The index of vertex of interest, should be > 0
-	//	j_node_name:		The index of vertex of interest, should be > 0 and not equal to i
+	//	i_vertex_name:		The index of vertex of interest, should be > 0
+	//	j_vertex_name:		The index of vertex of interest, should be > 0 and not equal to i
 	// Output:
 	//	True when the two vertices connected
-	bool CheckConnection(const T& i_node_name, const T& j_node_name) const;
+	bool CheckConnection(const T& i_vertex_name, const T& j_vertex_name) const;
 
 	// Gets all the vertices
 	// Output:
@@ -106,21 +106,21 @@ public:
 
 	// Gets the edge value between 2 vertices
 	// Inputs:
-	//	i_node_name:		The index of vertex of interest, should be > 0
-	//	j_node_name:		The index of vertex of interest, should be > 0 and not equal to i
+	//	i_vertex_name:		The index of vertex of interest, should be > 0
+	//	j_vertex_name:		The index of vertex of interest, should be > 0 and not equal to i
 	// Output:
 	//	The value of the edge specified
-	int GetEdgeValue(const T& i_node_name, const T& j_node_name) const;
+	int GetEdgeValue(const T& i_vertex_name, const T& j_vertex_name) const;
 
 	// Sets the edge value between 2 vertices
 	// Inputs:
-	//	i_node_name:	The index of vertex of interest, should be > 0
-	//	j_node_name:	The index of vertex of interest, should be > 0 and not equal to i
+	//	i_vertex_name:	The index of vertex of interest, should be > 0
+	//	j_vertex_name:	The index of vertex of interest, should be > 0 and not equal to i
 	//	range:	The desired range
 	// Output:
 	//	True if seccessfully set
 	//	If the edge does not exist previously, the setting aborts.
-	bool SetEdgeValue(const T& i_node_name, const T& j_node_name, int range);
+	bool SetEdgeValue(const T& i_vertex_name, const T& j_vertex_name, int range);
 
 	int GetNumOfVertices() const;
 
@@ -151,12 +151,12 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 	// Else, make edges
 	srand(time(0));
 	int i_idx = 0;
-	for (auto&& i_node_name : symbol_table_)
+	for (auto&& i_vertex_name : symbol_table_)
 	{
-		// Find the indices of the i node
+		// Find the indices of the i vertex
 		try
 		{
-			i_idx = GetIndex(i_node_name);
+			i_idx = GetIndex(i_vertex_name);
 		}
 		catch (const out_of_range &e)
 		{
@@ -171,25 +171,25 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 			if (rand_num > density)
 				continue;
 
-			auto j_node_name = *ite;
+			auto j_vertex_name = *ite;
 			// Generate the random range
 			int range = (rand() % k_max_range_) + 1;
 			// Add edge
-			AddEdge(i_node_name, j_node_name, range);
+			AddEdge(i_vertex_name, j_vertex_name, range);
 		}
 	}
 }
 
 template <class T>
-Graph<T>::Graph(const std::vector<T>& vec_node_name, double density = 0.0, int max_range = 0)
-	: num_of_vertices_(vec_node_name.size())
-	, symbol_table_(vec_node_name)
+Graph<T>::Graph(const std::vector<T>& vec_vertex_name, double density = 0.0, int max_range = 0)
+	: num_of_vertices_(vec_vertex_name.size())
+	, symbol_table_(vec_vertex_name)
 	, num_of_edges_(0)
 	, k_max_range_(max_range)
 {
 
 	// Check if parameters are within legal ranges
-	assert((vec_node_name.size() >= 0) && (density >= 0.0) && (density <= 1.0) && (max_range > 0));
+	assert((vec_vertex_name.size() >= 0) && (density >= 0.0) && (density <= 1.0) && (max_range > 0));
 
 	// Initialize the 2D matrix with the given num_of_vertices
 	edge_matrix_ = std::vector<std::vector<int>>(num_of_vertices_, std::vector<int>(num_of_vertices_));
@@ -204,12 +204,12 @@ Graph<T>::Graph(const std::vector<T>& vec_node_name, double density = 0.0, int m
 	// Else, make edges
 	srand(time(0));
 	int i_idx = 0;
-	for (auto&& i_node_name : symbol_table_)
+	for (auto&& i_vertex_name : symbol_table_)
 	{
-		// Find the indices of the i node
+		// Find the indices of the i vertex
 		try
 		{
-			i_idx = GetIndex(i_node_name);
+			i_idx = GetIndex(i_vertex_name);
 		}
 		catch (const std::out_of_range &e)
 		{
@@ -224,11 +224,11 @@ Graph<T>::Graph(const std::vector<T>& vec_node_name, double density = 0.0, int m
 			if (rand_num > density)
 				continue;
 
-			auto j_node_name = *ite;
+			auto j_vertex_name = *ite;
 			// Generate the random range
 			int range = (rand() % k_max_range_) + 1;
 			// Add edge
-			AddEdge(i_node_name, j_node_name, range);
+			AddEdge(i_vertex_name, j_vertex_name, range);
 		}
 	}
 }
@@ -238,17 +238,17 @@ Graph<T>::~Graph()
 {}
 
 template<class T>
-bool Graph<T>::AddEdge(const T& i_node_name, const T& j_node_name, int range)
+bool Graph<T>::AddEdge(const T& i_vertex_name, const T& j_vertex_name, int range)
 {
-	assert((i_node_name != j_node_name) && (range > 0));
+	assert((i_vertex_name != j_vertex_name) && (range > 0));
 
-	// Find the indices of the node
+	// Find the indices of the vertex
 	int i_idx = 0;
 	int j_idx = 0;
 	try
 	{
-		i_idx = GetIndex(i_node_name);
-		j_idx = GetIndex(j_node_name);
+		i_idx = GetIndex(i_vertex_name);
+		j_idx = GetIndex(j_vertex_name);
 	}
 	catch (const std::out_of_range& e)
 	{
@@ -268,17 +268,17 @@ bool Graph<T>::AddEdge(const T& i_node_name, const T& j_node_name, int range)
 }
 
 template <class T>
-bool Graph<T>::DeleteEdge(const T& i_node_name, const T& j_node_name)
+bool Graph<T>::DeleteEdge(const T& i_vertex_name, const T& j_vertex_name)
 {
-	assert((i_node_name != j_node_name));
+	assert((i_vertex_name != j_vertex_name));
 
-	// Find the indices of the node
+	// Find the indices of the vertex
 	int i_idx = 0;
 	int j_idx = 0;
 	try
 	{
-		i_idx = GetIndex(i_node_name);
-		j_idx = GetIndex(j_node_name);
+		i_idx = GetIndex(i_vertex_name);
+		j_idx = GetIndex(j_vertex_name);
 	}
 	catch (const out_of_range &e)
 	{
@@ -298,13 +298,13 @@ bool Graph<T>::DeleteEdge(const T& i_node_name, const T& j_node_name)
 }
 
 template <class T>
-std::vector<T> Graph<T>::NeighborsOf(const T& node_name) const
+std::vector<T> Graph<T>::NeighborsOf(const T& vertex_name) const
 {
-	// Find the index of the node
+	// Find the index of the vertex
 	int i_idx = 0;
 	try
 	{
-		i_idx = GetIndex(node_name);
+		i_idx = GetIndex(vertex_name);
 	}
 	catch (const out_of_range &e)
 	{
@@ -323,17 +323,17 @@ std::vector<T> Graph<T>::NeighborsOf(const T& node_name) const
 }
 
 template <class T>
-bool Graph<T>::CheckConnection(const T& i_node_name, const T& j_node_name) const
+bool Graph<T>::CheckConnection(const T& i_vertex_name, const T& j_vertex_name) const
 {
-	assert((i_node_name != j_node_name));
+	assert((i_vertex_name != j_vertex_name));
 
-	// Find the indices of the node
+	// Find the indices of the vertex
 	int i_idx = 0;
 	int j_idx = 0;
 	try
 	{
-		i_idx = GetIndex(i_node_name);
-		j_idx = GetIndex(j_node_name);
+		i_idx = GetIndex(i_vertex_name);
+		j_idx = GetIndex(j_vertex_name);
 	}
 	catch (const out_of_range &e)
 	{
@@ -352,15 +352,15 @@ const std::vector<T>& Graph<T>::GetVertices() const
 }
 
 template <class T>
-int Graph<T>::GetEdgeValue(const T& i_node_name, const T& j_node_name) const
+int Graph<T>::GetEdgeValue(const T& i_vertex_name, const T& j_vertex_name) const
 {
-	// Find the indices of the node
+	// Find the indices of the vertex
 	int i_idx = 0;
 	int j_idx = 0;
 	try
 	{
-		i_idx = GetIndex(i_node_name);
-		j_idx = GetIndex(j_node_name);
+		i_idx = GetIndex(i_vertex_name);
+		j_idx = GetIndex(j_vertex_name);
 	}
 	catch (const out_of_range &e)
 	{
@@ -370,17 +370,17 @@ int Graph<T>::GetEdgeValue(const T& i_node_name, const T& j_node_name) const
 }
 
 template <class T>
-bool Graph<T>::SetEdgeValue(const T& i_node_name, const T& j_node_name, int range)
+bool Graph<T>::SetEdgeValue(const T& i_vertex_name, const T& j_vertex_name, int range)
 {
-	assert((i_node_name != j_node_name) && (range > 0));
+	assert((i_vertex_name != j_vertex_name) && (range > 0));
 
-	// Find the indices of the node
+	// Find the indices of the vertex
 	int i_idx = 0;
 	int j_idx = 0;
 	try
 	{
-		i_idx = GetIndex(i_node_name);
-		j_idx = GetIndex(j_node_name);
+		i_idx = GetIndex(i_vertex_name);
+		j_idx = GetIndex(j_vertex_name);
 	}
 	catch (const out_of_range &e)
 	{
