@@ -13,10 +13,10 @@ template <class T>
 class Graph
 {
 private:
-	int num_of_vertices_;
-	int num_of_edges_;
+	int num_of_vertices_{ 0 };
+	int num_of_edges_{ 0 };
 	// The max range of the graph
-	const int k_max_range_;
+	const int k_max_range_{ 0 };
 
 	// A map storing the mapping between the vertex names and their integer index
 	std::vector<T> symbol_table_;
