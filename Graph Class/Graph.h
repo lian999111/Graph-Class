@@ -39,7 +39,7 @@ private:
 	// Helps to get the index of the given vertex name
 	int GetIndex(const T& vertex_name) const
 	{
-		auto ite = std::find(symbol_table_.begin() , symbol_table_.end(), vertex_name);
+		const auto ite = std::find(symbol_table_.begin() , symbol_table_.end(), vertex_name);
 
 		// The given vertex name must exist
 		assert(ite != symbol_table_.end());
