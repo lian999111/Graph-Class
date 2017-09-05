@@ -40,8 +40,9 @@ private:
 	int GetIndex(const T& vertex_name) const
 	{
 		auto ite = std::find(symbol_table_.begin() , symbol_table_.end(), vertex_name);
-		if (ite == symbol_table_.end())
-			throw std::out_of_range("Given vertex doesn't exist.");
+
+		// The given vertex name must exist
+		assert(ite != symbol_table_.end());
 
 		return std::distance(symbol_table_.begin(), ite);
 	}
@@ -154,14 +155,8 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 	for (auto&& i_vertex_name : symbol_table_)
 	{
 		// Find the indices of the i vertex
-		try
-		{
 			i_idx = GetIndex(i_vertex_name);
-		}
-		catch (const out_of_range &e)
-		{
-			throw;
-		}
+		
 		// Start looping from the next vertex
 		for (auto ite = symbol_table_.begin() + i_idx + 1; ite != symbol_table_.end(); ite++)
 		{
@@ -207,14 +202,8 @@ Graph<T>::Graph(const std::vector<T>& vec_vertex_name, double density = 0.0, int
 	for (auto&& i_vertex_name : symbol_table_)
 	{
 		// Find the indices of the i vertex
-		try
-		{
 			i_idx = GetIndex(i_vertex_name);
-		}
-		catch (const std::out_of_range &e)
-		{
-			throw;
-		}
+
 		// Start looping from the next vertex
 		for (auto ite = symbol_table_.begin() + i_idx + 1; ite != symbol_table_.end(); ite++)
 		{
@@ -243,17 +232,8 @@ bool Graph<T>::AddEdge(const T& i_vertex_name, const T& j_vertex_name, int range
 	assert((i_vertex_name != j_vertex_name) && (range > 0));
 
 	// Find the indices of the vertex
-	int i_idx = 0;
-	int j_idx = 0;
-	try
-	{
-		i_idx = GetIndex(i_vertex_name);
-		j_idx = GetIndex(j_vertex_name);
-	}
-	catch (const std::out_of_range& e)
-	{
-		throw;
-	}
+	int i_idx = GetIndex(i_vertex_name);
+	int j_idx = GetIndex(j_vertex_name);
 
 	if (edge_matrix_.at(i_idx).at(j_idx) > 0)
 	{
@@ -273,17 +253,8 @@ bool Graph<T>::DeleteEdge(const T& i_vertex_name, const T& j_vertex_name)
 	assert((i_vertex_name != j_vertex_name));
 
 	// Find the indices of the vertex
-	int i_idx = 0;
-	int j_idx = 0;
-	try
-	{
-		i_idx = GetIndex(i_vertex_name);
-		j_idx = GetIndex(j_vertex_name);
-	}
-	catch (const out_of_range &e)
-	{
-		throw;
-	}
+	int i_idx = GetIndex(i_vertex_name);
+	int j_idx = GetIndex(j_vertex_name);
 
 	if (edge_matrix_.at(i_idx).at(j_idx) == 0)
 	{
@@ -301,15 +272,7 @@ template <class T>
 std::vector<T> Graph<T>::NeighborsOf(const T& vertex_name) const
 {
 	// Find the index of the vertex
-	int i_idx = 0;
-	try
-	{
-		i_idx = GetIndex(vertex_name);
-	}
-	catch (const out_of_range &e)
-	{
-		throw;
-	}
+	int i_idx = GetIndex(vertex_name);
 	
 	vector<T> neighbor_list;
 	// If the edge to i-th element is greater than 0, put in the neighbor_list
@@ -327,18 +290,9 @@ bool Graph<T>::CheckConnection(const T& i_vertex_name, const T& j_vertex_name) c
 {
 	assert((i_vertex_name != j_vertex_name));
 
-	// Find the indices of the vertex
-	int i_idx = 0;
-	int j_idx = 0;
-	try
-	{
-		i_idx = GetIndex(i_vertex_name);
-		j_idx = GetIndex(j_vertex_name);
-	}
-	catch (const out_of_range &e)
-	{
-		throw;
-	}
+	// Find the indices of the vertices
+	int i_idx = GetIndex(i_vertex_name);
+	int j_idx = GetIndex(j_vertex_name);
 
 	if (edge_matrix_.at(i_idx).at(j_idx) > 0)
 		return true;
@@ -354,18 +308,9 @@ const std::vector<T>& Graph<T>::GetVertices() const
 template <class T>
 int Graph<T>::GetEdgeValue(const T& i_vertex_name, const T& j_vertex_name) const
 {
-	// Find the indices of the vertex
-	int i_idx = 0;
-	int j_idx = 0;
-	try
-	{
-		i_idx = GetIndex(i_vertex_name);
-		j_idx = GetIndex(j_vertex_name);
-	}
-	catch (const out_of_range &e)
-	{
-		throw;
-	}
+	// Find the indices of the vertices
+	int i_idx = GetIndex(i_vertex_name);
+	int j_idx = GetIndex(j_vertex_name);
 	return edge_matrix_.at(i_idx).at(j_idx);
 }
 
@@ -374,18 +319,9 @@ bool Graph<T>::SetEdgeValue(const T& i_vertex_name, const T& j_vertex_name, int 
 {
 	assert((i_vertex_name != j_vertex_name) && (range > 0));
 
-	// Find the indices of the vertex
-	int i_idx = 0;
-	int j_idx = 0;
-	try
-	{
-		i_idx = GetIndex(i_vertex_name);
-		j_idx = GetIndex(j_vertex_name);
-	}
-	catch (const out_of_range &e)
-	{
-		throw;
-	}
+	// Find the indices of the vertices
+	int i_idx = GetIndex(i_vertex_name);
+	int j_idx = GetIndex(j_vertex_name);
 
 	// If there is no edge already existing, do nothing and return false
 	if (edge_matrix_.at(i_idx).at(j_idx) == 0)
