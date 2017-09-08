@@ -6,10 +6,11 @@
 #include <string>
 #include "Graph.h"
 
-using namespace std;
 
 int main()
 {
+	using namespace std;
+
 	cout << "Use number of vertices to construct:" << endl;
 	Graph<int> my_graph(10, 0.7, 10);
 

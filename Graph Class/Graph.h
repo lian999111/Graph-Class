@@ -140,7 +140,7 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 	assert((num_of_vertices >= 0) && (density >= 0.0) && (density <= 1.0) && (max_range > 0));
 
 	// Initialize the 2D matrix with the given num_of_vertices
-	edge_matrix_ = vector<vector<int>>(num_of_vertices_, vector<int>(num_of_vertices_));
+	edge_matrix_ = std::vector<std::vector<int>>(num_of_vertices_, std::vector<int>(num_of_vertices_));
 
 	// If density is 0 or no. of vertices is 0,
 	// make no edges and return directly
@@ -274,7 +274,7 @@ std::vector<T> Graph<T>::NeighborsOf(const T& vertex_name) const
 	// Find the index of the vertex
 	int i_idx = GetIndex(vertex_name);
 	
-	vector<T> neighbor_list;
+	std::vector<T> neighbor_list;
 	// If the edge to i-th element is greater than 0, put in the neighbor_list
 	for (int j_idx = 0; j_idx < num_of_vertices_; ++j_idx)
 	{
