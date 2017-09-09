@@ -49,6 +49,7 @@ private:
 
 public:
 	// Constructs a graph with given inputs
+	// This ctor overloads the template version
 	// Inputs:
 	//	num_of_vertices:	No. of vertices. Sould be no less than 0
 	//	density:			The probabilty of edge formation between two vertices
