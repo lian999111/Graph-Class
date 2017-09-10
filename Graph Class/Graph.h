@@ -177,7 +177,7 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 }
 
 template <class T>
-Graph<T>::Graph(const std::vector<T>& vec_vertex_name, double density = 0.0, int max_range = 0)
+Graph<T>::Graph(const std::vector<T>& vec_vertex_name, double density, int max_range)
 	: num_of_vertices_(vec_vertex_name.size())
 	, symbol_table_(vec_vertex_name)
 	, num_of_edges_(0)
