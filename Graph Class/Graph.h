@@ -56,7 +56,7 @@ public:
 	//						Should be between 0 and 1
 	//						0 means no edges will be created
 	//	max_range:			The max range of the graph
-	Graph(int num_of_vertices = 0, double density = 0.0, int max_range = 0);
+	explicit Graph(int num_of_vertices = 0, double density = 0.0, int max_range = 0);
 
 	// Constructs a graph with given vector of vertex names
 	// Inputs:
@@ -65,7 +65,7 @@ public:
 	//						Should be between 0 and 1
 	//						0 means no edges will be created
 	//	max_range:			The max range of the graph
-	Graph(const std::vector<T>& vec_vertex_name, double density = 0.0, int max_range = 0);
+	explicit Graph(const std::vector<T>& vec_vertex_name, double density = 0.0, int max_range = 0);
 
 	~Graph();
 
