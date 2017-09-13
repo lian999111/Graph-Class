@@ -3,10 +3,8 @@
 
 #include <vector>
 #include <algorithm>
-#include <cstdint>
-#include <ctime>
+#include <random>
 #include <cassert>
-#include <exception>
 
 // An arbitrary type for the vertex name
 template <class T>
@@ -151,7 +149,14 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 	}
 
 	// Else, make edges
-	srand(time(0));
+
+	// Used to seed mt19937
+	std::random_device rd;
+	// Initialize mt engine
+	std::mt19937 mt(rd());
+	// This generates uniformly distributed real numbers in [0, 1)
+	std::uniform_real_distribution<double> randGen(0.0, 1.0);
+
 	int i_idx = 0;
 	for (auto&& i_vertex_name : symbol_table_)
 	{
@@ -163,7 +168,7 @@ Graph<T>::Graph(int num_of_vertices, double density, int max_range)
 		{
 			// If the random number is bigger than density, 
 			// make no edge and continue to the next loop
-			double rand_num = rand() / ((double)RAND_MAX + 1);
+			double rand_num = randGen(mt);
 			if (rand_num > density)
 				continue;
 
@@ -198,7 +203,14 @@ Graph<T>::Graph(const std::vector<T>& vec_vertex_name, double density, int max_r
 	}
 
 	// Else, make edges
-	srand(time(0));
+	
+	// Used to seed mt19937
+	std::random_device rd;
+	// Initialize mt engine
+	std::mt19937 mt(rd());
+	// This generates uniformly distributed real numbers in [0, 1)
+	std::uniform_real_distribution<double> randGen(0.0, 1.0);
+
 	int i_idx = 0;
 	for (auto&& i_vertex_name : symbol_table_)
 	{
@@ -210,7 +222,7 @@ Graph<T>::Graph(const std::vector<T>& vec_vertex_name, double density, int max_r
 		{
 			// If the random number is bigger than density, 
 			// make no edge and continue to the next loop
-			double rand_num = rand() / ((double)RAND_MAX + 1);
+			double rand_num = randGen(mt);
 			if (rand_num > density)
 				continue;
 
