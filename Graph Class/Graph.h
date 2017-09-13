@@ -14,7 +14,7 @@ private:
 	int num_of_vertices_{ 0 };
 	int num_of_edges_{ 0 };
 	// The max range of the graph
-	const int k_max_range_{ 0 };
+	const int k_max_range_{ 10 };
 
 	// A map storing the mapping between the vertex names and their integer index
 	std::vector<T> symbol_table_;
@@ -54,7 +54,7 @@ public:
 	//						Should be between 0 and 1
 	//						0 means no edges will be created
 	//	max_range:			The max range of the graph
-	explicit Graph(int num_of_vertices = 0, double density = 0.0, int max_range = 0);
+	explicit Graph(int num_of_vertices = 0, double density = 0.0, int max_range = 10);
 
 	// Constructs a graph with given vector of vertex names
 	// Inputs:
@@ -63,7 +63,7 @@ public:
 	//						Should be between 0 and 1
 	//						0 means no edges will be created
 	//	max_range:			The max range of the graph
-	explicit Graph(const std::vector<T>& vec_vertex_name, double density = 0.0, int max_range = 0);
+	explicit Graph(const std::vector<T>& vec_vertex_name, double density = 0.0, int max_range = 10);
 
 	~Graph();
 
