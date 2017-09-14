@@ -1,6 +1,6 @@
-// Graph Class Template
-#pragma once
+// This class template implements a graph with vertex names of type T
 
+#pragma once
 #include <vector>
 #include <algorithm>
 #include <random>
